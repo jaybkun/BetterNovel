@@ -38,7 +38,6 @@ module.exports = function(grunt) {
                 files: ['public/index.tmpl.html'],
                 tasks: ['includeSource']
             }
-
         },
         includeSource: {
             options: {
@@ -46,6 +45,9 @@ module.exports = function(grunt) {
                 templates: {
                     html: {
                         js: '<script src="{filePath}" type="text/javascript"></script>'
+                    },
+                    js: {
+                        directive: '{{filePath}}'
                     }
                 }
             },
@@ -57,7 +59,6 @@ module.exports = function(grunt) {
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-jshint');

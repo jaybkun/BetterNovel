@@ -5,7 +5,30 @@
         directive('editWindow', function() {
             return {
                 restrict: 'E',
-                templateUrl: '/js/directives/EditWindow/editWindow.html'
+                scope: {
+                    content: '=',
+                    editable: '='
+                },
+                template:'<div contentEditable="{{editable}}"></div>',
+                link: function(scope, element, attr) {
+
+                },
+                controller: ['$scope', '$localStorage', function($scope, $localStorage) {
+                    $scope.$storage = $localStorage.$default(
+                        {
+                            content: "",
+                            editable: true
+                        }
+                    );
+
+                    $scope.characterCount = function() {
+                        return content.length;
+                    };
+
+                    $scope.wordCount = function() {
+                        return content.split(" ").length;
+                    }
+                }]
 
             };
         });
