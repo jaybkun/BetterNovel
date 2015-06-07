@@ -19,6 +19,7 @@
     "underscore": "~1.8.3",
     "ngstorage": "~0.3.4",
     "angular-bootstrap": "~0.13.0",
-    "bootstrap": "~3.3.4"
+    "bootstrap": "~3.3.4",
+    "moment": "~2.10.3"
   }
 }

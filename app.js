@@ -2,8 +2,10 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var multer = require('multer');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var sassMiddleware = require('node-sass-middleware');
 
 var users = require('./routes/users');
 
@@ -13,9 +15,21 @@ app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(multer({
+        dest: './uploads'
+    }
+));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/styles', sassMiddleware({
+    src: path.join(__dirname, '/scss'),
+    dest: path.join(__dirname, '/public/styles'),
+    debug: true,
+    render: function() {
 
+    },
+    outputStyle: 'expanded'
+}));
 app.use('/users', users);
 
 // catch 404 and forward to error handler
