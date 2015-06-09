@@ -9,7 +9,7 @@
                     content: '=',
                     editable: '='
                 },
-                template:   '<div ng-transclude="">' +
+                template:   '<div>' +
                                 '<textarea autofocus style="resize:none; width:100%; height:100%;" ng-model="content"></textarea>' +
                             '</div>',
                 link: function(scope, element, attr) {

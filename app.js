@@ -5,14 +5,18 @@ var logger = require('morgan');
 var multer = require('multer');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+
 var sassMiddleware = require('node-sass-middleware');
 
 var users = require('./routes/users');
 
 var app = express();
 
+app.set('view engine', 'jade');
+
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(multer({
@@ -25,10 +29,7 @@ app.use('/styles', sassMiddleware({
     src: path.join(__dirname, '/scss'),
     dest: path.join(__dirname, '/public/styles'),
     debug: true,
-    render: function() {
-
-    },
-    outputStyle: 'expanded'
+    outputStyle: 'expanded',
 }));
 app.use('/users', users);
 
