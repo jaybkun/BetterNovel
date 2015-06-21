@@ -66,7 +66,7 @@
                 password: $scope.main.credentials.password
             }).then(function(data) {
                 if (data.error) {
-                    //TODO handle error
+                    $scope.loginErrorMessage = data.error;
                 } else {
                     $scope.loadAuth();
                     $scope.main.credentials = {};
@@ -77,8 +77,6 @@
         $scope.logout = function() {
             AuthService.logout();
             delete $scope.main.user;
-            $scope.loadAuth();
-            $scope.$broadcast('authRemoved');
         };
 
         $scope.registerUser = function() {

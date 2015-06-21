@@ -19,10 +19,19 @@ module.exports = function(passport) {
     // LOGIN ================================
     // ======================================
     router.post('/login',
-        passport.authenticate('local-login'),
-        function(req, res) {
-            res.json(req.user);
-        });
+        passport.authenticate('local-login', {
+            successRedirect: '/auth/loginSuccess',
+            failureRedirect: '/auth/loginFail',
+            failureFlash: true
+        }));
+
+    router.get('/loginSuccess', function(req, res) {
+        res.json(req.user);
+    });
+
+    router.get('/loginFail', function(req, res) {
+        res.json({ error: "Incorrect username or password" });
+    });
 
     // =====================================
     // LOGOUT ==============================

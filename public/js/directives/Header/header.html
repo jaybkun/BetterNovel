@@ -27,17 +27,17 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><strong>{{main.user.local.username}}</strong> <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a ui-sref="profile({user:main.user.local.username})">My Profile</a></li>
-                            <li><a ui-sref="profile({user:main.user.local.username})">Settings</a></li>
+                            <li><a href="#" ui-sref="profile({user:main.user.local.username})">My Profile</a></li>
+                            <li><a href="#" ui-sref="profile({user:main.user.local.username})">Settings</a></li>
                             <li class="divider"></li>
-                            <li><a ng-click="logout()">Logout</a></li>
+                            <li><a href="#" ng-click="logout()">Logout</a></li>
                         </ul>
                     </li>
                 </ul>
 
                 <ul ng-hide="main.user.local" class="nav navbar-nav navbar-right">
                     <li><a href="#" data-toggle="modal" data-target="#loginModal">Login</a></li>
-                    <li><a href="#">Register</a></li>
+                    <li><a href="#" >Register</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
