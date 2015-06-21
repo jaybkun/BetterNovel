@@ -1,6 +1,7 @@
 // config/passport.js
 
-// load libraries
+// load the things we need =====================================================
+var Promise = require('bluebird');
 var LocalStrategy = require('passport-local').Strategy;
 
 // load the user model
@@ -71,21 +72,19 @@ module.exports = function(passport) {
         passwordField: 'password',
         passReqToCallback: true
     }, function(req, username, password, done) {
-
-        User.findOne({'local.username' : username }, function(err, user) {
+        User.findOne({'local.username': username}, function (err, user) {
             if (err) {
-                return done(err);
+                return done(null, err);
             }
-
             if (!user) {
                 return done(null, false, req.flash('loginMessage', 'Incorrect username or password.'));
             }
-
             if (!user.validPassword(password)) {
                 return done(null, false, req.flash('loginMessage', 'Incorrect username or password.'));
             }
-
             return done(null, user);
         });
     }));
 };
+
+

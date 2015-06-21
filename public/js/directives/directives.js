@@ -3,6 +3,7 @@
 
     angular.module('BN.Directives', [
         'BN.directives.EditWindow',
-        'BN.directives.Header'
+        'BN.directives.Header',
+        'BN.directives.LoginModal'
     ]);
 })();

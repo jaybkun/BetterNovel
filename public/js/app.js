@@ -18,7 +18,8 @@
                 url: '/',
                 abstract: true,
                 controller: 'MainController'
-            }).
+            });
+        /*
             state('login', {
                 url: '/login',
                 templateUrl: '/login.html'
@@ -38,6 +39,7 @@
                 template: '/views/work/work.html',
                 controller: 'WorkController as work'
             });
+            */
     });
 
     app.controller('MainController', ['$scope', '$q', 'AuthService', function($scope, $q, AuthService) {
@@ -46,9 +48,11 @@
         };
 
         $scope.loadAuth = function() {
-            AuthService.load().then(function(data) {
-                $scope.main.user = data.user;
-                $scope.$broadcast('authLoaded');
+            AuthService.load().then(function(auth) {
+               if (auth) {
+                   $scope.main.user = auth;
+                   $scope.$broadcast('authLoaded');
+               }
             });
         };
 
@@ -71,14 +75,10 @@
         };
 
         $scope.logout = function() {
-            AuthService.logout().
-                then(function() {
-                   //TODO
-                    $scope.main.user = {};
-                    $scope.loadAuth();
-                    $scope.$broadcast('authRemoved');
-                });
-
+            AuthService.logout();
+            delete $scope.main.user;
+            $scope.loadAuth();
+            $scope.$broadcast('authRemoved');
         };
 
         $scope.registerUser = function() {

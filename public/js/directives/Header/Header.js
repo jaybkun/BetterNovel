@@ -9,7 +9,7 @@
                 templateUrl: '/js/directives/Header/header.html',
                 controller: ['$scope', function($scope) {
                     $scope.$on('authLoaded', function() {
-                        $scope.user = $scope.main.user;
+                        $('#loginModal').modal('hide');
                     });
                 }]
             };

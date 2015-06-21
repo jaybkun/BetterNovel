@@ -43,14 +43,14 @@ module.exports = function(grunt) {
                     html: {
                         js: '<script src="{filePath}" type="text/javascript"></script>'
                     },
-                    js: {
-                        directive: '{{filePath}}'
+                    jade: {
+                        js: 'script(src="{filePath}", type="text/javascript")'
                     }
                 }
             },
             dist: {
                 files: {
-                    'public/index.html': ['<%= watch.index.files %>']
+                    'public/index.html': 'templates/index.tmpl.html'
                 }
             }
         }

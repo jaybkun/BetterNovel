@@ -4,30 +4,22 @@
     angular.module('BN.Services.AuthService', []).
         factory('AuthService', ['$resource', '$q', function($resource, $q) {
             var auth = $resource('/auth');
-            var login = $resource('/login');
-            var logout = $resource('/logout');
-            var register = $resource('/register');
+            var login = $resource('/auth/login');
+            var logout = $resource('/auth/logout');
+            var register = $resource('/auth/register');
 
             return {
                 load: function() {
-                    var deferred = $q.defer();
-                    auth.get({}, function(data) {
-                        deferred.resolve(data);
-                    },function(error) {
-                        deferred.reject(error);
+                    return auth.get().$promise.then(function(user) {
+                        return user._id ? user : null;
                     });
-                    return deferred.promise;
                 },
                 logout: function() {
-                    var deferred = $q.defer();
-                    logout.get({}, function() {
-                        deferred.resolve({success:true});
-                    });
-                    return deferred.promise;
+                    logout.save();
                 },
-                login: function(username, password) {
+                login: function(credentials) {
                     var deferred = $q.defer();
-                    login.save({username: username, password:password}, function(data) {
+                    login.save({username: credentials.username, password: credentials.password}, function(data) {
                         deferred.resolve(data);
                     }, function(error) {
                         deferred.reject(error);
