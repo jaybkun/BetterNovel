@@ -4,7 +4,6 @@
 var express = require('express');
 var app = express();
 var path = require('path');
-var port = process.env.PORT || 3000;
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash = require('connect-flash');
@@ -50,5 +49,9 @@ app.use(flash()); // connect-flash for flash messages stored in session
 require('./routes/index')(app, passport);
 
 // start listening =============================================================
-app.listen(port);
-console.log("BetterNovel ready for writing on port", port);
+var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+var address = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+app.listen(port, address, function() {
+	console.log("BetterNovel ready for writing on port", port);
+);
+
