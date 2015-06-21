@@ -2,14 +2,8 @@ module.exports = function(grunt) {
     grunt.initConfig({
         jshint: {
             options: {
-                curly: true,
-                eqeqeq: true,
-                eqnull: true,
-                browser: true,
-                globals: {
-                    jQuery: true,
-                    angular: true
-                }
+                jshintrc: '.jshintrc',
+                reporter: require('jshint-stylish')
             },
             server: ['app.js', 'bin/www', 'routes/**/*.js', 'db/**/*.js'],
             client: ['public/js/**/*.js', 'public/views/**/*.js'],
@@ -18,6 +12,9 @@ module.exports = function(grunt) {
             all: ['**/*.js', '!node_modules/**', '!public/bower_components/**']
         },
         watch: {
+            options: {
+                atBegin: true
+            },
             server: {
                 files: ['<%= jshint.server %>'],
                 tasks: ['jshint:server']
@@ -28,7 +25,7 @@ module.exports = function(grunt) {
             },
             gruntfile: {
                 files: ['Gruntfile.js'],
-                tasks: ['jshint:gruntfile']
+                tasks: ['jshint']
             },
             tests: {
                 files: ['<%= jshint.test %>'],
@@ -64,5 +61,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-include-source');
 
-    grunt.registerTask('default', ['includeSource']);
+    grunt.registerTask('default', ['jshint:all', 'includeSource']);
 };

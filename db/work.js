@@ -7,10 +7,12 @@
             subtitle: { type: String },
             author: [ String ],
             tags: [String],
-            creationDate: { type: Date },
+            volume: { type: Number, default: 1},
             publicationDate: {type: Date },
             characters: [mongoose.schema.Types.ObjectId],
-            acts: []
+            acts: [],
+            created: { type: Date, default: Date.now },
+            updated: { type: Date, default: Date.now }
         });
 
         return WorkModel;

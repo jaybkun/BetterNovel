@@ -7,7 +7,7 @@
             summary: { type: String },
             attributes: [],
             tags: [String],
-            scenes: { type: String }
+            scenes: [ mongoose.Schema.types.ObjectId ]
         });
 
         return ChapterModel;

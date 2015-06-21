@@ -10,28 +10,34 @@
                     editable: '='
                 },
                 template:   '<div>' +
-                                '<textarea autofocus style="resize:none; width:100%; height:100%;" ng-model="content"></textarea>' +
+                                '<div class="display" contenteditable="true" ng-model="content">{{content}}</div>' +
+                                '<textarea ng-hide="true" ng-model="content"></textarea>' +
+                                '<input type="hidden" tabindex="-1"/>' +
                             '</div>',
                 link: function(scope, element, attr) {
-
+                    scope.update = function() {
+                        var display = element.find('div.display');
+                        display.html(scope.content);
+                    };
                 },
                 controller: ['$scope', '$localStorage', function($scope, $localStorage) {
-                    $scope.$storage = $localStorage.$default(
-                        {
+                    $scope.$storage = $localStorage.$default({
                             content: "",
                             editable: true
-                        }
-                    );
+                        });
+
+                    $scope.$watch('content', function() {
+                        $scope.update();
+                    });
 
                     $scope.characterCount = function() {
-                        return content.length;
+                        //return content.length;
                     };
 
                     $scope.wordCount = function() {
-                        return content.split(" ").length;
-                    }
+                        //return content.split(" ").length;
+                    };
                 }]
-
             };
         });
 })();
