@@ -52,6 +52,6 @@ require('./routes/index')(app, passport);
 var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 var address = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 app.listen(port, address, function() {
-	console.log("BetterNovel ready for writing on port", port);
-);
+    console.log("BetterNovel ready for writing on port", port);
+});
 
