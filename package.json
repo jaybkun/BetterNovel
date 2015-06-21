@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "a better story writing tool",
   "repository": "https://github.com/jaybkun/BetterNovel.git",
-  "main": "bin/www",
+  "main": "server.js",
   "directories": {
     "test": "test"
   },
