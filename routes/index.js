@@ -1,52 +1,54 @@
-var express = require('express');
-var router = express.Router();
+// routes/index.js
 
+// include other routes ========================================================
+var Auth = require('./auth');
+
+// construct the main routing ==================================================
 module.exports = function(app, passport) {
     "use strict";
 
     // =====================================
     // HOME PAGE (with login links) ========
     // =====================================
-    router.get('/', function(req, res) {
+    app.get('/', function(req, res) {
         res.render('index');
     });
 
     // =====================================
     // LOGIN ===============================
     // =====================================
-    router.get('/login', function(req, res) {
-
-        // render the page and pass in any flash data
-        res.render('login', { message: req.flash('loginMessage') });
-    });
-
-    // process the login
-    router.post('/login', passport.authenticate('local-login', {
-        successRedirect: '/profile',
-        failureRedirect: '/register',
-        failureFlash: true
-     }));
+    app.route('/login').
+        get(function(req, res) {
+            // render the page and pass in any flash data
+            res.render('login', { message: req.flash('loginMessage') });
+        }).
+        // process the login
+        post(passport.authenticate('local-login', {
+            successRedirect: '/profile',
+            failureRedirect: '/register',
+            failureFlash: true
+        }));
 
     // =====================================
     // REGISTER ============================
     // =====================================
-    router.get('/register', function(req, res) {
+    app.route('/register').
+        get(function(req, res) {
 
-        // render the page and pass in any flash data
-        res.render('register', { message: req.flash('registerMessage') });
-    });
-
-    // process the register form
-    router.post('/register', passport.authenticate('local-registration', {
-        successRedirect : '/profile', // redirect to the secure profile section
-        failureRedirect : '/register', // redirect back to the registration page if there is an error
-        failureFlash : true // allow flash messages
-    }));
+            // render the page and pass in any flash data
+            res.render('register', { message: req.flash('registerMessage') });
+        }).
+        // process the register form
+        post(passport.authenticate('local-registration', {
+            successRedirect : '/profile', // redirect to the secure profile section
+            failureRedirect : '/register', // redirect back to the registration page if there is an error
+            failureFlash : true // allow flash messages
+        }));
 
     // =====================================
     // PROFILE =============================
     // =====================================
-    router.get('/profile', isLoggedIn, function(req, res) {
+    app.get('/profile', isLoggedIn, function(req, res) {
         res.render('profile', {
             user: req.user // get the user from the session
         });
@@ -55,12 +57,12 @@ module.exports = function(app, passport) {
     // =====================================
     // LOGOUT ==============================
     // =====================================
-    router.get('/logout', function(req, res) {
+    app.get('/logout', function(req, res) {
         req.logout();
         res.redirect('/');
     });
 
-    app.use('/', router);
+    app.use('/auth', new Auth(passport));
 };
 
 // router middleware to make sure a user is logged in

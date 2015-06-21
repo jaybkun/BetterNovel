@@ -3,10 +3,10 @@
 
     angular.module('BN.Services.AuthService', []).
         factory('AuthService', ['$resource', '$q', function($resource, $q) {
-            var auth = $resource('/api/v1/auth');
-            var login = $resource('/api/v1/auth/login');
-            var logout = $resource('/api/v1/auth/logout');
-            var register = $resource('/api/v1/auth/register');
+            var auth = $resource('/auth');
+            var login = $resource('/login');
+            var logout = $resource('/logout');
+            var register = $resource('/register');
 
             return {
                 load: function() {
