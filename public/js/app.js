@@ -37,7 +37,8 @@
 
     app.controller('MainController', ['$scope', '$q', 'AuthService', function($scope, $q, AuthService) {
         $scope.main = {
-            user: {}
+            user: {},
+            credentials: {}
         };
 
         $scope.loadAuth = function() {
@@ -75,13 +76,14 @@
         $scope.registerUser = function() {
             AuthService.register({
                 username: $scope.main.credentials.username,
-                email: $scope.main.credentials.email,
-                password: $scope.main.credentials.password
+                password: $scope.main.credentials.password,
+                email: $scope.main.credentials.email
             }).then(function(data) {
                 if (data.error) {
-                    //TODO
+                    $scope.registerErrorMessage = data.error;
                 } else {
-                    //$scope.loadUser();
+                    $scope.loadAuth();
+                    $scope.main.credentials = {};
                 }
             });
         };

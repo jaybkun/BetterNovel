@@ -34,25 +34,18 @@ module.exports = function(passport) {
         usernameField: 'username',
         passwordField: 'password',
         passReqToCallback: true // allows passback of entire request object to callback
-    },
-    function(req, username, password, done) {
+    }, function(req, username, password, done) {
+        console.log("register");
         User.findOne({'local.username': username}, function (err, user) {
             if (err) {
                 return done(err);
             }
-
             if (user) {
                 return done(null, false, req.flash('registerMessage', 'That username is already in use.'));
             } else {
-
-                // create the user
                 var newUser = new User();
-
-                // set the local credentials
                 newUser.local.username = username;
                 newUser.local.password = newUser.generateHash(password);
-
-                // save the user
                 newUser.save(function (err) {
                     if (err) {
                         throw err;

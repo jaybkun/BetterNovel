@@ -45,10 +45,20 @@ module.exports = function(passport) {
     // REGISTER ============================
     // =====================================
     router.post('/register',
-        passport.authenticate('local-register',
-            function(req, res) {
-                res.json(req.user);
-            }));
+        passport.authenticate('local-registration', {
+            successRedirect: '/auth/registerSuccess',
+            failureRedirect: '/auth/registerFail',
+            failureFlash: true
+        }));
+
+    router.get('/registerSuccess', function(req, res) {
+        res.json(req.user);
+    });
+
+    router.get('/registerFail', function(req, res) {
+        // TODO get the correct error message
+        res.json({ error: "That username is already in use" });
+    });
 
     return router;
 };

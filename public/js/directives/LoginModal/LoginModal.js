@@ -9,7 +9,7 @@
                 templateUrl: '/js/directives/LoginModal/LoginModal.html',
                 link: function(scope, element, attr) {
                     element.on('hidden.bs.modal', function() {
-                        delete scope.main.credentials;
+                        scope.main.credentials = {};
                         delete scope.loginErrorMessage;
                     });
                 }

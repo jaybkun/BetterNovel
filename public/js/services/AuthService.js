@@ -29,7 +29,7 @@
                 register: function(registerObj) {
                     var deferred = $q.defer();
                     register.save(registerObj, function(data) {
-                       deferred.resolve(data.user);
+                       deferred.resolve(data);
                     }, function(error) {
                        deferred.reject(error);
                     });
