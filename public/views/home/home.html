@@ -1,38 +1,5 @@
-
-        <div class="panel panel-default" >
-            <div class="panel-heading" >
-                <div class="btn-toolbar" role="toolbar">
-                    <div class="btn-group btn-group-sm" role="group">
-                        <button class="btn btn-default"><i class="glyphicon glyphicon-font"></i></button>
-                        <button class="btn btn-default"><i class="glyphicon glyphicon-bold"></i></button>
-                        <button class="btn btn-default"><i class="glyphicon glyphicon-italic"></i></button>
-                    </div>
-                    <div class="btn-group btn-group-sm" role="group">
-                        <button class="btn btn-default"><i class="glyphicon glyphicon-align-left"></i></button>
-                        <button class="btn btn-default"><i class="glyphicon glyphicon-align-center"></i></button>
-                        <button class="btn btn-default"><i class="glyphicon glyphicon-align-right"></i></button>
-                        <button class="btn btn-default"><i class="glyphicon glyphicon-align-justify"></i></button>
-                    </div>
-                    <div class="btn-group btn-group-sm" role="group">
-                        <button class="btn btn-default"><i class="glyphicon glyphicon-indent-left"></i></button>
-                        <button class="btn btn-default"><i class="glyphicon glyphicon-indent-right"></i></button>
-                        <button class="btn btn-default"><i class="glyphicon glyphicon-list"></i></button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="panel-body">
-                <edit-window content="$storage.content" style="height:80px"></edit-window>
-            </div>
-            <div class="panel-footer">
-                <div class="btn-toolbar" role="toolbar">
-                    <div class="btn-group" role="group" aria-label="">
-                        <button type="button" class="btn btn-default" ng-click="clearContent()"><i class="glyphicon glyphicon-remove"></i></button>
-                        <button type="button" class="btn btn-default" ng-click="bookmark()"><i class="glyphicon glyphicon-bookmark"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-<div class="row">
-    <div class="col-sm-12">status bar</div>
+<div class="container">
+    <ul>
+        <li ng-repeat="work in myWorks"></li>
+    </ul>
 </div>

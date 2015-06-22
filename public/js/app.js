@@ -17,15 +17,14 @@
             state('root', {
                 url: '/',
                 abstract: true,
-                controller: 'MainController'
-            });
-        /*
-            state('login', {
-                url: '/login',
-                templateUrl: '/login.html'
+                controller: 'MainController as main'
+            }).
+            state('register', {
+                url: '/register',
+                templateUrl: 'register.html'
             }).
             state('home', {
-                url: '/home',
+                url: '/',
                 templateUrl: '/views/home/home.html',
                 controller: 'HomeController as home'
             }).
@@ -33,13 +32,7 @@
                 url: '/:user',
                 templateUrl: '/views/profile/profile.html',
                 controller: 'ProfileController as profile'
-            }).
-            state('work', {
-                url: '/:user/:work',
-                template: '/views/work/work.html',
-                controller: 'WorkController as work'
             });
-            */
     });
 
     app.controller('MainController', ['$scope', '$q', 'AuthService', function($scope, $q, AuthService) {

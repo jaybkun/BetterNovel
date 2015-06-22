@@ -1,6 +1,6 @@
 ;(function() {
     angular.module('BetterNovelViews', [
-        'HomeViewModule',
-        'ProfileViewModule'
+        'BN.views.home',
+        'BN.views.profile'
     ]);
 })();
