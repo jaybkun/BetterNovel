@@ -1,6 +1,7 @@
 ;(function() {
-    angular.module('BetterNovelViews', [
+    angular.module('BN.Views', [
         'BN.views.home',
-        'BN.views.profile'
+        'BN.views.profile',
+        'BN.views.register'
     ]);
 })();

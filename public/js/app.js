@@ -5,7 +5,9 @@
         'ui.bootstrap',
         'ngResource',
         'ngStorage',
-        'BetterNovelViews',
+        'formly',
+        'formlyBootstrap',
+        'BN.Views',
         'BN.Directives',
         'BN.Services'
     ]);
@@ -21,7 +23,8 @@
             }).
             state('register', {
                 url: '/register',
-                templateUrl: 'register.html'
+                templateUrl: '/views/register/register.html',
+                controller: 'RegisterController as register'
             }).
             state('home', {
                 url: '/',
@@ -50,10 +53,6 @@
             });
         };
 
-        $scope.loadUser = function(username) {
-            //TODO
-        };
-
         $scope.login = function() {
             AuthService.login({
                 username: $scope.main.credentials.username,
@@ -71,21 +70,6 @@
         $scope.logout = function() {
             AuthService.logout();
             delete $scope.main.user;
-        };
-
-        $scope.registerUser = function() {
-            AuthService.register({
-                username: $scope.main.credentials.username,
-                password: $scope.main.credentials.password,
-                email: $scope.main.credentials.email
-            }).then(function(data) {
-                if (data.error) {
-                    $scope.registerErrorMessage = data.error;
-                } else {
-                    $scope.loadAuth();
-                    $scope.main.credentials = {};
-                }
-            });
         };
 
         $scope.loadAuth();
