@@ -20,5 +20,9 @@
                     }
                 });
             };
+
+            $scope.passwordMatch = function() {
+                return ($scope.registration.password === $scope.registration.passwordConf);
+            };
         }]);
 })();
