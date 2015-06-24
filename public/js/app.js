@@ -5,9 +5,7 @@
         'ui.bootstrap',
         'ngResource',
         'ngStorage',
-        'formly',
-        'formlyBootstrap',
-        'BN.Views',
+        'BN.controllers',
         'BN.Directives',
         'BN.Services'
     ]);
@@ -23,17 +21,17 @@
             }).
             state('register', {
                 url: '/register',
-                templateUrl: '/views/register/register.html',
+                templateUrl: '/js/controllers/register/register.html',
                 controller: 'RegisterController as register'
             }).
             state('home', {
                 url: '/',
-                templateUrl: '/views/home/home.html',
+                templateUrl: '/js/controllers/home/home.html',
                 controller: 'HomeController as home'
             }).
             state('profile', {
                 url: '/:user',
-                templateUrl: '/views/profile/profile.html',
+                templateUrl: '/js/controllers/profile/profile.html',
                 controller: 'ProfileController as profile'
             });
     });

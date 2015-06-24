@@ -1,7 +1,7 @@
 (function() {
     "use strict";
 
-    angular.module('BN.views.home', []).
+    angular.module('BN.controllers.home', []).
         controller('HomeController', ['$scope', '$localStorage', function($scope, $localStorage) {
 
         }]);

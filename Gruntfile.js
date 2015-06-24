@@ -5,11 +5,10 @@ module.exports = function(grunt) {
                 jshintrc: '.jshintrc',
                 reporter: require('jshint-stylish')
             },
-            server: ['app.js', 'bin/www', 'routes/**/*.js', 'db/**/*.js'],
-            client: ['public/js/**/*.js', 'public/views/**/*.js'],
+            server: ['app.js', 'bin/www', 'routes/**/*.js', 'models/**/*.js', 'db/**/*.js'],
+            client: ['public/js/**/*.js'],
             test: ['test/**/*.js'],
-            gruntfile: ['Gruntfile.js'],
-            all: ['**/*.js', '!node_modules/**', '!public/bower_components/**']
+            gruntfile: ['Gruntfile.js']
         },
         watch: {
             options: {
