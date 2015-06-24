@@ -20,6 +20,8 @@ var configDB = require('./config/database.js');
 
 // Configuration ===============================================================
 mongoose.connect(configDB.url);
+mongoose.connection.on('connected', function() { console.log("MongoDB connected"); });
+mongoose.connection.on('disconnected', function() { console.log("MongoDB disconnected"); });
 
 require('./config/passport')(passport); // pass passport for configuration
 
@@ -52,7 +54,7 @@ app.use(express.static(__dirname + '/public'));
 require('./routes/index')(app, passport);
 
 // start listening =============================================================
-var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+var port = process.env.OPENSHIFT_NODEJS_PORT || 80;
 var address = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 app.listen(port, address, function() {
     console.log("BetterNovel ready for writing on port", port);

@@ -1,6 +1,6 @@
 // config/database.js
 
-var connectionString = '127.0.0.1:27017/betternovel';
+var connectionString = '127.0.0.1/betternovel';
 
 if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
     connectionString = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":"+
