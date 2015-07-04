@@ -5,7 +5,7 @@ var Promise = require('bluebird');
 var LocalStrategy = require('passport-local').Strategy;
 
 // load the user model
-var User = require('../models/user');
+var User = require('../models/user_model');
 
 // expose this ot our app
 module.exports = function(passport) {

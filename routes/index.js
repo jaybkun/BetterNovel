@@ -1,7 +1,7 @@
 // routes/index.js
 
 // include other routes ========================================================
-var Auth = require('./auth');
+var Auth = require('./auth_routes');
 
 // construct the main routing ==================================================
 module.exports = function(app, passport) {

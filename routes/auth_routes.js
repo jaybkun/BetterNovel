@@ -1,4 +1,4 @@
-// routes/auth.js
+// routes/auth_routes.js
 
 // include the things we need ==================================================
 var express = require('express');
