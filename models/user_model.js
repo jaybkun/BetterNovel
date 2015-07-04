@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 
 var userSchema = new Schema({
     local: {
-        username: { type: String },
+        email: { type: String },
         password: { type: String}
     },
     facebook: {
@@ -26,19 +26,16 @@ var userSchema = new Schema({
         email: { type: String },
         name: { type: String }
     },
-    admin: { type: Boolean, default: false},
-    alias: { type: String },
+    roles: [],
     joined: { type: Date, default: new Date() },
-    update: { type: Date },
-    email: { type: String },
-    options: { }
+    lastLogin: { type: Date, default: new Date() }
 });
 
 // methods =================================
 // generate a hash
 userSchema.methods.generateHash = function(password) {
     "use strict";
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(10), null);
 };
 
 // check if a password is valid

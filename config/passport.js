@@ -31,12 +31,11 @@ module.exports = function(passport) {
     // =========================================================================
 
     passport.use('local-registration', new LocalStrategy({
-        usernameField: 'username',
+        usernameField: 'email',
         passwordField: 'password',
         passReqToCallback: true // allows passback of entire request object to callback
-    }, function(req, username, password, done) {
-        console.log("register");
-        User.findOne({'local.username': username}, function (err, user) {
+    }, function(req, email, password, done) {
+        User.findOne({'local.email': email}, function (err, user) {
             if (err) {
                 return done(err);
             }
@@ -44,8 +43,9 @@ module.exports = function(passport) {
                 return done(null, false, req.flash('registerMessage', 'That username is already in use.'));
             } else {
                 var newUser = new User();
-                newUser.local.username = username;
+                newUser.local.email = email;
                 newUser.local.password = newUser.generateHash(password);
+                newUser.roles.push('user');
                 newUser.save(function (err) {
                     if (err) {
                         throw err;
@@ -61,11 +61,11 @@ module.exports = function(passport) {
     // =========================================================================
 
     passport.use('local-login', new LocalStrategy({
-        usernameField: 'username',
+        usernameField: 'email',
         passwordField: 'password',
         passReqToCallback: true
-    }, function(req, username, password, done) {
-        User.findOne({'local.username': username}, function (err, user) {
+    }, function(req, email, password, done) {
+        User.findOne({'local.email': email}, function (err, user) {
             if (err) {
                 return done(null, err);
             }
