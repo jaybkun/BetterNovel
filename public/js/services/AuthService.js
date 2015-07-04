@@ -19,7 +19,7 @@
                 },
                 login: function(credentials) {
                     var deferred = $q.defer();
-                    login.save({username: credentials.username, password: credentials.password}, function(data) {
+                    login.save({email: credentials.email, password: credentials.password}, function(data) {
                         deferred.resolve(data);
                     }, function(error) {
                         deferred.reject(error);

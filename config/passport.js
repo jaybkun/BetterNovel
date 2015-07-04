@@ -29,31 +29,34 @@ module.exports = function(passport) {
     // =========================================================================
     // LOCAL REGISTRATION ======================================================
     // =========================================================================
+    function createLocalUser(email, password) {
+        var newUser = new User();
+        newUser.local.email = email;
+        newUser.local.password = newUser.generateHash(password);
+        newUser.roles.push('user');
+        return newUser.save();
+    }
 
     passport.use('local-registration', new LocalStrategy({
         usernameField: 'email',
         passwordField: 'password',
         passReqToCallback: true // allows passback of entire request object to callback
     }, function(req, email, password, done) {
-        User.findOne({'local.email': email}, function (err, user) {
-            if (err) {
-                return done(err);
-            }
-            if (user) {
-                return done(null, false, req.flash('registerMessage', 'That username is already in use.'));
-            } else {
-                var newUser = new User();
-                newUser.local.email = email;
-                newUser.local.password = newUser.generateHash(password);
-                newUser.roles.push('user');
-                newUser.save(function (err) {
-                    if (err) {
-                        throw err;
-                    }
-                    return done(null, newUser);
-                });
-            }
-        });
+
+        return User.findOne({'local.email': email}).
+            then(function (userByEmail) {
+                if (userByEmail) {
+                    throw 'That email is already in registered.';
+                } else {
+                    return createLocalUser(email, password);
+                }
+            }).
+            then(function (newUser) {
+                return done(null, newUser);
+            }).
+            catch(function (error) {
+                return done(null, false, req.flash('registerMessage'))
+            });
     }));
 
     // =========================================================================

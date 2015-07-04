@@ -7,11 +7,8 @@
             $scope.errorMessage = '';
 
             $scope.registerUser = function() {
-                AuthService.register({
-                    username: $scope.registration.username,
-                    password: $scope.registration.password,
-                    email: $scope.registration.email
-                }).then(function(data) {
+                AuthService.register($scope.registration).
+                then(function(data) {
                     if (data.error) {
                         $scope.errorMessage = data.error;
                     } else {
