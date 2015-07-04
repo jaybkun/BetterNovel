@@ -10,30 +10,81 @@
         'BN.Services'
     ]);
 
-    app.config(function($stateProvider, $urlRouterProvider) {
+    app.run(['$rootScope', 'AUTH_EVENTS', 'AuthService', function($rootScope, AUTH_EVENTS, AuthService) {
+        $rootScope.$on('$stateChangeStart', function (event, next) {
+            var authorizedRoles = next.data.authorizedRoles;
+            if (!AuthService.isAuthorized(authorizedRoles)) {
+                event.preventDefault();
+                if (AuthService.isAuthenticated()) {
+                    // user is not allowed
+                    $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+                } else {
+                    // user is not logged in
+                    $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+                }
+            }
+        });
+    }]);
+
+    app.config(['$stateProvider', '$urlRouterProvider', 'USER_ROLES', function($stateProvider, $urlRouterProvider, USER_ROLES) {
         $urlRouterProvider.otherwise('/');
 
         $stateProvider.
             state('root', {
                 url: '/',
                 abstract: true,
-                controller: 'MainController as main'
+                controller: 'MainController as main',
+                resolve: {
+                    auth: function resolveAuthentication(AuthResolver) {
+                        return AuthResolver.resolve();
+                    }
+                }
+            }).
+            state('home', {
+                url: '/',
+                templateUrl: '/js/controllers/home/home.html',
+                controller: 'HomeController as home',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.user]
+                }
             }).
             state('register', {
                 url: '/register',
                 templateUrl: '/js/controllers/register/register.html',
                 controller: 'RegisterController as register'
             }).
-            state('home', {
-                url: '/',
-                templateUrl: '/js/controllers/home/home.html',
-                controller: 'HomeController as home'
-            }).
             state('profile', {
                 url: '/:user',
                 templateUrl: '/js/controllers/profile/profile.html',
-                controller: 'ProfileController as profile'
+                controller: 'ProfileController as profile',
+                data: {
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.user]
+                }
             });
+    }]);
+
+    app.config(function ($httpProvider) {
+        $httpProvider.interceptors.push([
+            '$injector',
+            function ($injector) {
+                return $injector.get('AuthInterceptor');
+            }
+        ]);
+    });
+
+    app.factory('AuthInterceptor', function ($rootScope, $q,
+                                              AUTH_EVENTS) {
+        return {
+            responseError: function (response) {
+                $rootScope.$broadcast({
+                    401: AUTH_EVENTS.notAuthenticated,
+                    403: AUTH_EVENTS.notAuthorized,
+                    419: AUTH_EVENTS.sessionTimeout,
+                    440: AUTH_EVENTS.sessionTimeout
+                }[response.status], response);
+                return $q.reject(response);
+            }
+        };
     });
 
     app.constant('AUTH_EVENTS', {
@@ -51,38 +102,13 @@
         user: 'user'
     });
 
-    app.controller('MainController', ['$scope', '$q', 'AuthService', function($scope, $q, AuthService) {
-
+    app.controller('MainController', ['$scope', '$q', 'AuthService', 'USER_ROLES', function($scope, $q, AuthService, USER_ROLES) {
         $scope.currentUser = null;
+        $scope.userRoles = USER_ROLES;
+        $scope.isAuthorized = AuthService.isAuthorized;
 
-        $scope.loadAuth = function() {
-            AuthService.load().then(function(auth) {
-               if (auth) {
-                   $scope.currentUser = auth;
-               }
-            });
+        $scope.setCurrentUser = function(user) {
+            $scope.currentUser = user;
         };
-
-        $scope.login = function() {
-            AuthService.login({
-                username: $scope.main.credentials.username,
-                password: $scope.main.credentials.password
-            }).then(function(data) {
-                if (data.error) {
-                    $scope.loginErrorMessage = data.error;
-                } else {
-                    $scope.loadAuth();
-                    $scope.main.credentials = {};
-                }
-            });
-        };
-
-        $scope.logout = function() {
-            AuthService.logout();
-            delete $scope.main.user;
-        };
-
-        $scope.loadAuth();
     }]);
-
 })();

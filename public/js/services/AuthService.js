@@ -3,16 +3,16 @@
 
     angular.module('BN.Services.AuthService', []).
         service('Session', [function() {
-            this.create = function(id, user, roles) {
-                this.id = id;
-                this.user = user;
-                this.roles = roles;
+            this.create = function(sessionId, userId, userRole) {
+                this.id = sessionId;
+                this.userId = user;
+                this.roles = userRole;
             };
 
             this.destroy = function() {
                 this.id = null;
-                this.user = null;
-                this.roles = null;
+                this.userId = null;
+                this.roles = null
             };
         }]).
         factory('AuthService', ['$resource', '$q', 'Session', function($resource, $q, Session) {
@@ -28,7 +28,7 @@
             authService.login = function(credentials) {
                 var deferred = $q.defer();
                 login.save(credentials, function(user) {
-                    Session.create(user.sessionID, user, user.role);
+                    Session.create(user.sessionID, user._id, user.roles);
                     deferred.accept(user);
                 }, function(err) {
                     deferred.reject(err);
@@ -54,5 +54,24 @@
             };
 
             return authService;
-        }]);
+        }]).
+        factory('AuthResolver', function ($q, $rootScope, $state) {
+            return {
+                resolve: function () {
+                    var deferred = $q.defer();
+                    var unwatch = $rootScope.$watch('currentUser', function (currentUser) {
+                        if (angular.isDefined(currentUser)) {
+                            if (currentUser) {
+                                deferred.resolve(currentUser);
+                            } else {
+                                deferred.reject();
+                                $state.go('user-login');
+                            }
+                            unwatch();
+                        }
+                    });
+                    return deferred.promise;
+                }
+            };
+        });
 })();
