@@ -60,5 +60,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-include-source');
 
-    grunt.registerTask('default', ['jshint:all', 'includeSource']);
+    grunt.registerTask('default', ['jshint', 'includeSource']);
 };
