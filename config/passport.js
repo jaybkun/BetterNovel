@@ -29,33 +29,41 @@ module.exports = function(passport) {
     // =========================================================================
     // LOCAL REGISTRATION ======================================================
     // =========================================================================
-    function createLocalUser(email, password) {
+    function createLocalUser(username, password, email) {
         var newUser = new User();
-        newUser.local.email = email;
-        newUser.local.password = newUser.generateHash(password);
+        newUser.username = username;
+        newUser.email = email;
+        newUser.authentication.local.password = newUser.generateHash(password);
         newUser.roles.push('user');
         return newUser.save();
     }
 
     passport.use('local-registration', new LocalStrategy({
-        usernameField: 'email',
+        usernameField: 'username',
         passwordField: 'password',
         passReqToCallback: true // allows passback of entire request object to callback
-    }, function(req, email, password, done) {
+    }, function(req, username, password, done) {
 
-        return User.findOne({'local.email': email}).
-            then(function (userByEmail) {
-                if (userByEmail) {
-                    throw 'That email is already in registered.';
+        return User.findOne({'username': username}).
+            then(function (userByUsername) {
+                if (userByUsername) {
+                    throw 'That username is already in use.';
                 } else {
-                    return createLocalUser(email, password);
+                    return User.findOne({'email': req.body.email})
+                }
+            }).
+            then(function(userByEmail) {
+                if (userByEmail) {
+                    throw 'That email address has already been registered.';
+                } else {
+                    return createLocalUser(username, password, req.body.email);
                 }
             }).
             then(function (newUser) {
                 return done(null, newUser);
             }).
             catch(function (error) {
-                return done(null, false, req.flash('registerMessage'));
+                return done(null, false, req.flash('registerMessage', error));
             });
     }));
 
@@ -64,12 +72,12 @@ module.exports = function(passport) {
     // =========================================================================
 
     passport.use('local-login', new LocalStrategy({
-        usernameField: 'email',
+        usernameField: 'username',
         passwordField: 'password',
         passReqToCallback: true
-    }, function(req, email, password, done) {
+    }, function(req, username, password, done) {
 
-        User.findOne({'local.email': email}, function (err, user) {
+        User.findOneAndUpdate({'username': username}, {lastLogin: new Date()}, function (err, user) {
             if (err) {
                 return done(null, err);
             }

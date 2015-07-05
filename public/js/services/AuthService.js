@@ -29,7 +29,12 @@
 
             authService.logout = function() {
                 Session.destroy();
-                return logout.save();
+                var deferred = $q.defer();
+                logout.save({}, function() {
+                    deferred.resolve();
+                });
+                return deferred.promise;
+
             };
 
             authService.login = function (credentials) {
@@ -94,7 +99,7 @@
                                 deferred.resolve(currentUser);
                             } else {
                                 deferred.reject();
-                                $state.go('user-login');
+                                $state.go('home');
                             }
                             unwatch();
                         }

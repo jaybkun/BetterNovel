@@ -22,6 +22,7 @@
                     $scope.login = function() {
                         AuthService.login($scope.credentials).
                             then(function(user) {
+                                $scope.credentials.email = null;
                                 $scope.setCurrentUser(user);
                                 $scope.$broadcast(AUTH_EVENTS.loginSuccess);
                                 $state.go('home');

@@ -6,12 +6,7 @@
             return {
                 restrict: 'A',
                 replace:true,
-                templateUrl: '/js/directives/Header/header.html',
-                controller: ['$scope', function($scope) {
-                    $scope.$on('authLoaded', function() {
-                        $('#loginModal').modal('hide');
-                    });
-                }]
+                templateUrl: '/js/directives/Header/header.html'
             };
         }]);
 })();

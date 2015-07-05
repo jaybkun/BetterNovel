@@ -39,17 +39,19 @@
                     auth: function resolveAuthentication(AuthResolver) {
                         return AuthResolver.resolve();
                     }
-                },
-                data: {
-                    authorizedRoles: [USER_ROLES.all]
                 }
             }).
             state('home', {
-                url: '/',
+                url: '/home',
                 templateUrl: '/js/controllers/home/home.html',
                 controller: 'HomeController as home',
                 data: {
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.user]
+                },
+                resolve: {
+                    auth: function resolveAuthentication(AuthResolver) {
+                        return AuthResolver.resolve();
+                    }
                 }
             }).
             state('register', {
@@ -109,7 +111,7 @@
         user: 'user'
     });
 
-    app.controller('MainController', ['$scope', '$q', 'AuthService', 'USER_ROLES', function($scope, $q, AuthService, USER_ROLES) {
+    app.controller('MainController', ['$scope', '$state', 'AuthService', 'USER_ROLES', function($scope, $state, AuthService, USER_ROLES) {
         $scope.currentUser = null;
         $scope.userRoles = USER_ROLES;
         $scope.isAuthorized = AuthService.isAuthorized;
@@ -117,5 +119,13 @@
         $scope.setCurrentUser = function(user) {
             $scope.currentUser = user;
         };
+
+        $scope.logout = function() {
+            AuthService.logout().
+                then(function() {
+                    $scope.setCurrentUser(null);
+                    $state.go('home');
+                });
+        }
     }]);
 })();

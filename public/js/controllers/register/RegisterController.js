@@ -16,8 +16,10 @@
                 }).
                 catch(function(error) {
                     $scope.errorMessage = error;
-                    $scope.registration.password = '';
-                    $scope.registration.passwordConf = '';
+                }).
+                finally(function() {
+                    $scope.registration.password = null;
+                    $scope.registration.passwordConf = null;
                 });
             };
 
