@@ -66,10 +66,12 @@
             authService.register = function(credentials) {
                 var deferred = $q.defer();
                 register.save(credentials, function(user) {
-                    Session.create(user.sessionId, user._id, user.roles);
-                    deferred.resolve(user);
-                },function(error) {
-                    deferred.reject(error);
+                    if (user.error) {
+                        deferred.reject(user.error);
+                    } else {
+                        Session.create(user.sessionId, user._id, user.roles);
+                        deferred.resolve(user);
+                    }
                 });
 
                 return deferred.promise;

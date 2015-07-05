@@ -8,13 +8,12 @@
 
             $scope.registerUser = function() {
                 AuthService.register($scope.registration).
-                then(function(data) {
-                    if (data.error) {
-                        $scope.errorMessage = data.error;
-                    } else {
-                        $scope.loadAuth();
-                        $state.go('home');
-                    }
+                then(function(user) {
+                    $scope.setCurrentUser(user);
+                    $state.go('home');
+                }).
+                catch(function(error) {
+                    $scope.errorMessage = error;
                 });
             };
 
