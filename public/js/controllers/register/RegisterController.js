@@ -7,6 +7,8 @@
             $scope.errorMessage = '';
 
             $scope.registerUser = function() {
+                $scope.errorMessage = '';
+
                 AuthService.register($scope.registration).
                 then(function(user) {
                     $scope.setCurrentUser(user);
@@ -14,6 +16,8 @@
                 }).
                 catch(function(error) {
                     $scope.errorMessage = error;
+                    $scope.registration.password = '';
+                    $scope.registration.passwordConf = '';
                 });
             };
 

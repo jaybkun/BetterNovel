@@ -57,7 +57,7 @@ module.exports = function(passport) {
 
     router.get('/registerFail', function(req, res) {
         // TODO get the correct error message
-        res.json({ error: "That username is already in use" });
+        res.json({ error: "That email address is already in use" });
     });
 
     return router;
