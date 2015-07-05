@@ -36,7 +36,7 @@ module.exports = function(passport) {
     // =====================================
     // LOGOUT ==============================
     // =====================================
-    router.post('/logout', function(req, res) {
+    router.all('/logout', function(req, res) {
         req.logout();
         res.redirect('/');
     });

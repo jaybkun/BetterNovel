@@ -35,7 +35,6 @@ app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use('/styles', sassMiddleware({
     src: path.join(__dirname, '/scss'),
     dest: path.join(__dirname, '/public/styles'),
-    debug: true,
     outputStyle: 'expanded'
 }));
 

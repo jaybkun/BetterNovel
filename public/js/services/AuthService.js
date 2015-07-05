@@ -28,14 +28,19 @@
             };
 
             authService.logout = function() {
+                Session.destroy();
                 return logout.save();
             };
 
             authService.login = function (credentials) {
                 var deferred = $q.defer();
                 login.save(credentials, function (user) {
-                    Session.create(user.sessionID, user._id, user.roles);
-                    deferred.accept(user);
+                    if (user.error) {
+                        deferred.reject(user.error);
+                    } else {
+                        Session.create(user.sessionID, user._id, user.roles);
+                        deferred.resolve(user);
+                    }
                 }, function (err) {
                     deferred.reject(err);
                 });
