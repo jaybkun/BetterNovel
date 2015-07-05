@@ -12,6 +12,7 @@
 
     app.run(['$rootScope', 'AUTH_EVENTS', 'AuthService', function($rootScope, AUTH_EVENTS, AuthService) {
         $rootScope.$on('$stateChangeStart', function (event, next) {
+
             var authorizedRoles = next.data.authorizedRoles;
             if (!AuthService.isAuthorized(authorizedRoles)) {
                 event.preventDefault();
@@ -38,6 +39,9 @@
                     auth: function resolveAuthentication(AuthResolver) {
                         return AuthResolver.resolve();
                     }
+                },
+                data: {
+                    authorizedRoles: [USER_ROLES.all]
                 }
             }).
             state('home', {
@@ -51,7 +55,10 @@
             state('register', {
                 url: '/register',
                 templateUrl: '/js/controllers/register/register.html',
-                controller: 'RegisterController as register'
+                controller: 'RegisterController as register',
+                data: {
+                    authorizedRoles: [USER_ROLES.all]
+                }
             }).
             state('profile', {
                 url: '/:user',

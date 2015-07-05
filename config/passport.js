@@ -55,7 +55,7 @@ module.exports = function(passport) {
                 return done(null, newUser);
             }).
             catch(function (error) {
-                return done(null, false, req.flash('registerMessage'))
+                return done(null, false, req.flash('registerMessage'));
             });
     }));
 
@@ -68,6 +68,7 @@ module.exports = function(passport) {
         passwordField: 'password',
         passReqToCallback: true
     }, function(req, email, password, done) {
+
         User.findOne({'local.email': email}, function (err, user) {
             if (err) {
                 return done(null, err);

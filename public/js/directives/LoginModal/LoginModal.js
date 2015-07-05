@@ -8,10 +8,7 @@
                 replace: true,
                 templateUrl: '/js/directives/LoginModal/LoginModal.html',
                 link: function(scope, element, attr) {
-                    element.on('hidden.bs.modal', function() {
-                        scope.main.credentials = {};
-                        delete scope.loginErrorMessage;
-                    });
+
                 }
             };
         });
