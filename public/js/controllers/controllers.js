@@ -2,8 +2,8 @@
     "use strict";
 
     angular.module('bn.controllers', [
-        'BN.controllers.home',
-        'BN.controllers.profile',
-        'BN.controllers.register'
+        'bn.controllers.home',
+        'bn.controllers.profile',
+        'bn.controllers.register'
     ]);
 })();

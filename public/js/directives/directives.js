@@ -2,8 +2,8 @@
     "use strict";
 
     angular.module('bn.directives', [
-        'BN.directives.EditWindow',
-        'BN.directives.Header',
-        'BN.directives.LoginModal'
+        'bn.directives.EditWindow',
+        'bn.directives.Header',
+        'bn.directives.LoginModal'
     ]);
 })();

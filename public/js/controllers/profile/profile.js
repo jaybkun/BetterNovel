@@ -1,7 +1,7 @@
-(function() {
+(function () {
     'use strict';
 
-    angular.module('BN.controllers.profile', []).
+    angular.module('bn.controllers.profile', []).
         controller('ProfileController', ['$scope', '$localStorage', function ($scope, $localStorage) {
 
         }]);

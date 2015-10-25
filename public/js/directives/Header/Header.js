@@ -1,7 +1,7 @@
 (function () {
     "use strict";
 
-    angular.module('BN.directives.Header', []).
+    angular.module('bn.directives.Header', []).
         directive('bnHeader', [function () {
             return {
                 restrict: 'A',
