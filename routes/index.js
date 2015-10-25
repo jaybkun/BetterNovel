@@ -10,6 +10,7 @@ module.exports = function(app, passport) {
     app.use('/auth', new Auth(passport));
 };
 
+/*
 // router middleware to make sure a user is logged in
 function isLoggedIn(req, res, next) {
     // if user is authenticated, we're good
@@ -19,3 +20,4 @@ function isLoggedIn(req, res, next) {
     // they aren't so send them home
     res.redirect('/');
 }
+*/

@@ -1,7 +1,7 @@
-;(function () {
-    'use strict';
+(function () {
+    "use strict";
 
-    angular.module('BN.Directives', [
+    angular.module('bn.directives', [
         'BN.directives.EditWindow',
         'BN.directives.Header',
         'BN.directives.LoginModal'

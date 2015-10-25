@@ -3,6 +3,7 @@
 // load the things we need =====================================================
 var Promise = require('bluebird');
 var LocalStrategy = require('passport-local').Strategy;
+var bcrypt = require('bcrypt-nodejs');
 
 // load the user model
 var User = require('../models/user_model');
@@ -80,12 +81,12 @@ module.exports = function(passport) {
         User.findOneAndUpdate({'username': username}, {lastLogin: new Date()}, function (err, user) {
             if (err) {
                 return done(null, err);
-            }
-            if (!user) {
-                return done(null, false, req.flash('loginMessage', 'Incorrect username or password.'));
-            }
-            if (!user.validPassword(password)) {
-                return done(null, false, req.flash('loginMessage', 'Incorrect username or password.'));
+            } else if (!user) {
+                req.error = "Incorrect username";
+                return done(null, false);
+            } else if (!user.validPassword(password)) {
+                req.error = "Incorrect password";
+                return done(null, false);
             }
             return done(null, user);
         });

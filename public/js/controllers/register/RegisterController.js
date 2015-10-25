@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular.module('BN.controllers.register', []).
@@ -6,25 +6,25 @@
             $scope.registration = {};
             $scope.errorMessage = '';
 
-            $scope.registerUser = function() {
+            $scope.registerUser = function () {
                 $scope.errorMessage = '';
 
                 AuthService.register($scope.registration).
-                then(function(user) {
-                    $scope.setCurrentUser(user);
-                    $state.go('home');
-                }).
-                catch(function(error) {
-                    $scope.errorMessage = error;
-                }).
-                finally(function() {
-                    $scope.registration.password = null;
-                    $scope.registration.passwordConf = null;
-                });
+                    then(function (user) {
+                        $state.go('home');
+                    }).
+                    catch(function (error) {
+                        $scope.errorMessage = error;
+                    }).
+                    finally(function () {
+                        $scope.registration.password = null;
+                        $scope.registration.passwordConf = null;
+                    });
             };
 
-            $scope.passwordMatch = function() {
-                return ($scope.registration.password === $scope.registration.passwordConf);
+            $scope.passwordMatch = function () {
+                //return ($scope.registration.password === $scope.registration.passwordConf);
+                return true;
             };
         }]);
 })();

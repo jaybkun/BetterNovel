@@ -21,20 +21,19 @@
 
                     $scope.login = function() {
                         AuthService.login($scope.credentials).
-                            then(function(user) {
+                            then(function () {
                                 $scope.credentials.email = null;
-                                $scope.setCurrentUser(user);
                                 $scope.$broadcast(AUTH_EVENTS.loginSuccess);
                                 $state.go('home');
                             }).
-                            catch(function(error) {
+                            catch(function (error) {
                                 $scope.$broadcast(AUTH_EVENTS.loginFailed);
                                 $scope.loginErrorMessage = error;
                             }).
-                            finally(function() {
-                                $scope.credentials.password = null;
+                            finally(function () {
+                                //$scope.credentials.password = null;
                             });
-                    }
+                    };
                 }]
             };
         }]);

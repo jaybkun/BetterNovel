@@ -6,7 +6,6 @@ var app = express();
 var path = require('path');
 var mongoose = require('mongoose');
 var passport = require('passport');
-var flash = require('connect-flash');
 
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
@@ -44,7 +43,6 @@ app.set('view engine', 'jade');  // setup jade for templating
 app.use(session({secret: 'traveldogisthewonderdog', resave: false, saveUninitialized: true })); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login
-app.use(flash()); // connect-flash for flash messages stored in session
 
 // configure static components
 app.use(express.static(__dirname + '/public'));
@@ -53,7 +51,7 @@ app.use(express.static(__dirname + '/public'));
 require('./routes/index')(app, passport);
 
 // start listening =============================================================
-var port = process.env.OPENSHIFT_NODEJS_PORT || 80;
+var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 var address = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 app.listen(port, address, function() {
     console.log("BetterNovel ready for writing on port", port);

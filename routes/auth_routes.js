@@ -5,7 +5,7 @@ var express = require('express');
 var router = express.Router();
 
 // construct the auth router ===================================================
-module.exports = function(passport) {
+module.exports = function (passport) {
     "use strict";
 
     // ======================================
@@ -15,28 +15,26 @@ module.exports = function(passport) {
         res.json(req.user);
     });
 
-    // ======================================
+    // ======================================-
     // LOGIN ================================
     // ======================================
-    router.post('/login',
-        passport.authenticate('local-login', {
-            successRedirect: '/auth/loginSuccess',
-            failureRedirect: '/auth/loginFail',
-            failureFlash: true
-        }));
+    router.post('/login', passport.authenticate('local-login', {
+        successRedirect: '/auth/loginSuccess',
+        failureRedirect: '/auth/loginFail'
+    }));
 
-    router.get('/loginSuccess', function(req, res) {
+    router.get('/loginSuccess', function (req, res) {
         res.json(req.user);
     });
 
-    router.get('/loginFail', function(req, res) {
-        res.json({ error: "Incorrect username or password" });
+    router.get('/loginFail', function (req, res) {
+        res.json({error: "Incorrect username or password"});
     });
 
     // =====================================
     // LOGOUT ==============================
     // =====================================
-    router.all('/logout', function(req, res) {
+    router.all('/logout', function (req, res) {
         req.logout();
         res.redirect('/');
     });
@@ -47,17 +45,16 @@ module.exports = function(passport) {
     router.post('/register',
         passport.authenticate('local-registration', {
             successRedirect: '/auth/registerSuccess',
-            failureRedirect: '/auth/registerFail',
-            failureFlash: true
+            failureRedirect: '/auth/registerFail'
         }));
 
-    router.get('/registerSuccess', function(req, res) {
+    router.get('/registerSuccess', function (req, res) {
         res.json(req.user);
     });
 
-    router.get('/registerFail', function(req, res) {
+    router.get('/registerFail', function (req, res) {
         // TODO get the correct error message
-        res.json({ error: "That email address is already in use" });
+        res.json({error: "That email address is already in use"});
     });
 
     return router;

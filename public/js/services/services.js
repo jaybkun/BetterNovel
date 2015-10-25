@@ -1,3 +1,4 @@
-angular.module('BN.Services', [
-    'BN.Services.AuthService'
+angular.module('bn.services', [
+    'bn.services.AuthService',
+    'bn.services.SessionService'
 ]);
