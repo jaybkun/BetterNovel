@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    angular.module('bn.controllers.register', []).
+    angular.module('bn.states.register', []).
         controller('RegisterController', ['$scope', '$localStorage', 'AuthService', '$state', function ($scope, $localStorage, AuthService, $state) {
             $scope.registration = {};
             $scope.errorMessage = '';

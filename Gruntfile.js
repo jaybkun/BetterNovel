@@ -6,7 +6,7 @@ module.exports = function(grunt) {
                 reporter: require('jshint-stylish')
             },
             server: ['app.js', 'bin/www', 'routes/**/*.js', 'models/**/*.js', 'db/**/*.js'],
-            client: ['public/js/**/*.js'],
+            client: ['public/app/**/*.js'],
             test: ['test/**/*.js'],
             gruntfile: ['Gruntfile.js']
         },

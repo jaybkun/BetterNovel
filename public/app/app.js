@@ -49,23 +49,30 @@
         $stateProvider.
             state('home', {
                 url: '/',
-                templateUrl: '/js/controllers/home/home.html',
+                templateUrl: '/app/states/home/home.html',
                 data: {
                     authorizedRoles: [USER_ROLES.all]
                 }
             }).
             state('register', {
                 url: '/register',
-                templateUrl: '/js/controllers/register/register.html',
+                templateUrl: '/app/states/register/register.html',
                 data: {
                     authorizedRoles: [USER_ROLES.all]
                 }
             }).
             state('profile', {
                 url: '/:user',
-                templateUrl: '/js/controllers/profile/profile.html',
+                templateUrl: '/app/states/profile/profile.html',
                 data: {
-                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.user]
+                    authorizedRoles: [USER_ROLES.user]
+                }
+            }).
+            state('newWork', {
+                url: '/new',
+                templateUrl: '/app/states/newWork/NewWorkView.html',
+                data: {
+                    authorizedRoles: [USER_ROLES.user]
                 }
             });
     }]);

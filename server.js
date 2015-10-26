@@ -29,11 +29,11 @@ app.use(morgan('dev')); // log all requests to the console
 app.use(cookieParser()); // read cookies (auth)
 app.use(bodyParser.json()); // get html form information
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(multer({ dest: './uploads' })); // get multi-part uploads for images
+app.use(multer({ dest: './uploads' })); // get multi-part uploads for assets.images
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use('/styles', sassMiddleware({
     src: path.join(__dirname, '/scss'),
-    dest: path.join(__dirname, '/public/styles'),
+    dest: path.join(__dirname, '/public/assets/styles'),
     outputStyle: 'expanded'
 }));
 

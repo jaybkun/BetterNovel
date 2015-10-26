@@ -24,14 +24,14 @@ coverage
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
 
-# Dependency directory
+# Dependency directories
 # https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
-node_modules
-public/bower_components
+node_modules/
+public/assets/bower_components/
 
 # Compiled
 public/index.html
-public/styles
+public/assets/styles/
 
 # IDE
 .project

@@ -6,7 +6,7 @@
             return {
                 restrict: 'A',
                 replace: true,
-                templateUrl: '/js/directives/Header/header.html',
+                templateUrl: '/app/common/directives/Header/header.html',
                 controller: ['$scope', 'AuthService', function($scope, AuthService) {
                     $scope.logout = function() {
                         AuthService.logout().then(function() {

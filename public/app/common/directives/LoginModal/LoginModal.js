@@ -7,7 +7,7 @@
                 restrict: 'E',
                 replace: true,
                 scope: false,
-                templateUrl: '/js/directives/LoginModal/LoginModal.html',
+                templateUrl: '/app/common/directives/LoginModal/LoginModal.html',
                 link: function (scope, elem, attr) {
                     scope.$on(AUTH_EVENTS.loginSuccess, function () {
                         elem.modal('hide');

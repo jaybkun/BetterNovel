@@ -50,7 +50,11 @@
                         return true;
                     }
 
-                    var matchingRoles = _.intersection(Session.roles, authorizedRoles);
+                    if (!isLoggedIn()) {
+                        return false;
+                    }
+
+                    var matchingRoles = _.intersection(Session.getUser().roles, authorizedRoles);
                     return matchingRoles.length >= 1;
                 }
 
