@@ -1,5 +1,5 @@
 ## BetterNovel
-[![Build Status](https://travis-ci.org/jaybkun/BetterNovel.png?branch=master)](https://travis-ci.org/jaybkun/BetterNovel)
+[![Build Status](https://travis-ci.org/jaybkun/BetterNovel.svg?branch=master)](https://travis-ci.org/jaybkun/BetterNovel)
 ### Running the app
 
 Install dependencies
