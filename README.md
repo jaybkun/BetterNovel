@@ -14,3 +14,7 @@ Now you can run the server
 ### Running tests
 
     npm test
+
+or
+
+    mocha test

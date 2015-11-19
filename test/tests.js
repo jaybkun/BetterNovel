@@ -20,5 +20,4 @@ describe('BetterNovel Unit Tests', function () {
             });
         });
     });
-
 });
