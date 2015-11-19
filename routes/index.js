@@ -3,7 +3,7 @@ var router = express.Router();
 
 var handlers = require('../middleware');
 
-router.get('/api/user/:username', handlers.users.getUser);
+router.get('/api/user/:username', handlers.user.getUser);
 
 // Default send to the index for unhandled for now
 // TODO proper error routing
