@@ -1,23 +1,14 @@
-// routes/index.js
+var express = require('express');
+var router = express.Router();
 
-// include other routes ========================================================
-var Auth = require('./auth_routes');
+var handlers = require('../middleware');
 
-// construct the main routing ==================================================
-module.exports = function(app, passport) {
-    "use strict";
+router.get('/api/user/:username', handlers.users.getUser);
 
-    app.use('/auth', new Auth(passport));
-};
+// Default send to the index for unhandled for now
+// TODO proper error routing
+router.get('*', function (req, res) {
+    res.render('index', {title: "Better Novel"});
+});
 
-/*
-// router middleware to make sure a user is logged in
-function isLoggedIn(req, res, next) {
-    // if user is authenticated, we're good
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    // they aren't so send them home
-    res.redirect('/');
-}
-*/
+module.exports = router;
