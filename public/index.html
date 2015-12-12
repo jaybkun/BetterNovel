@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BetterNovel</title>
+
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" href="/bower_components/angular-material/angular-material.css"/>
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body ng-app="betternovel" layout="column">
+
+<div layout="column" layout-fill>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <span>Better Novel</span>
+            <!-- fill up the space between left and right area -->
+            <span flex></span>
+            <md-button>
+                Right Bar Button
+            </md-button>
+        </div>
+    </md-toolbar>
+
+    <md-content>
+
+    </md-content>
+</div>
+
+
+<!-- Scripts ---------------------------------------------------------------------------------------------------------->
+<script src="/bower_components/angular/angular.js"></script>
+<script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+
+<!-- Angular-Material Dependencies -->
+<script src="/bower_components/angular-animate/angular-animate.js"></script>
+<script src="/bower_components/angular-aria/angular-aria.js"></script>
+
+<script src="/bower_components/angular-material/angular-material.js"></script>
+
+<!-- inject:js -->
+<script src="/views/error/errorController.js"></script>
+<script src="/views/bnViews.js"></script>
+<script src="/app.js"></script>
+<!-- endinject -->
+
+</body>
+</html>
